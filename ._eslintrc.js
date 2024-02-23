@@ -84,7 +84,11 @@ module.exports = {
         "@typescript-eslint/no-empty-function": ["off"],
         "@typescript-eslint/no-explicit-any": ["off"],
 
-        //   'prettier/prettier': ['error', {}, { usePrettierrc: true }],
+        // "prettier/prettier": [
+        //   "error",
+        //   {},
+        //   { usePrettierrc: true, printWidth: 100 },
+        // ],
       },
     },
   ],
