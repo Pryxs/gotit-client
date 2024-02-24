@@ -1,8 +1,9 @@
 type ButtonProps = {
+  name: string;
+  onClick: () => void;
   type?: string;
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const Button: React.FC<ButtonProps> = ({ type }) => {
-  return <div>Button</div>;
+export const Button: React.FC<ButtonProps> = ({ name, type, onClick }) => {
+  return <button onClick={onClick}>{name}</button>;
 };

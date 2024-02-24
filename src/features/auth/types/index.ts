@@ -1,13 +1,7 @@
-export type AuthUser = {
-  id: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  bio: string;
-  role: "ADMIN" | "USER";
-};
+import { IUser } from "features/users/types";
+
+export type IAuth = Pick<IUser, 'email' | 'password'>
 
 export type UserResponse = {
-  jwt: string;
-  user: AuthUser;
+  token: string;
 };
