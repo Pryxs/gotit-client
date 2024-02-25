@@ -1,4 +1,16 @@
+import styled from '@emotion/styled'
 
+const CustomInput = styled.input({
+    padding: '8px 12px',
+    borderRadius: '4px',
+    outline: 'none',
+    border: '2px solid var(--dark)',
+    background: 'white',
+    width: '100%',
+    '&:focus-visible'  : {
+        borderColor: 'var(--contrast-color)',
+    }
+})
 
 type InputProps = {
     value: string;
@@ -7,5 +19,5 @@ type InputProps = {
 };
 
 export const Input: React.FC<InputProps> = ({ value, onChange, props }) => {
-    return <input value={value} onChange={onChange} {...props}/>
+    return <CustomInput value={value} onChange={onChange} {...props}/>
 };
