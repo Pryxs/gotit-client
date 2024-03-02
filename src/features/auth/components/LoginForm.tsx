@@ -2,6 +2,7 @@ import { Input, Button } from "components";
 import { useState } from "react";
 import { login, LoginCredentials } from "../api";
 import styled from '@emotion/styled'
+import { useNavigate } from 'react-router-dom';
 
 const Container = styled.div({
     width:'100%',
@@ -13,7 +14,8 @@ const Container = styled.div({
 })
 
 const FormWrapper = styled.div({
-    width:'330px',
+    padding: '16px',
+    width:'350px',
     display: 'flex',
     flexDirection: 'column',
     gap: '16px',
@@ -23,12 +25,15 @@ const FormWrapper = styled.div({
 })
 
 export const LoginForm: React.FC = () => {
+    const navigate = useNavigate();
+
     const [email, setEmail] = useState<string>('admin@gmail.com');
-    const [password, setPassword] = useState<string>('');
+    const [password, setPassword] = useState<string>('testtest');
     
     const submitLoginForm = async() => {
         const data: LoginCredentials = {email, password}
-        login(data);
+        const isLogged = await login(data);
+        if(isLogged) navigate("/")
     }
 
     return <Container>

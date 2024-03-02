@@ -5,6 +5,9 @@
   --white: #FFFCFE;
   --light: #F0E4ED;
   --dark: #390720;
+
+  --mobile-breakpoint: 540px;
+	--tablet-breakpoint: 880px;
 }
 
 @font-face {

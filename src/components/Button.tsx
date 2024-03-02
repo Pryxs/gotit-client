@@ -33,6 +33,7 @@ const CustomButton = styled.button(({ importance }: { importance: ImportanceType
 	padding: '8px 12px',
   borderRadius: '4px',
   width: '100%',
+  whiteSpace: 'nowrap',
   ...styles[importance]
 }));
 

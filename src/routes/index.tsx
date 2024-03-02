@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter,Navigate } from "react-router-dom";
 import { Login, Register } from "pages/auth"
 import { Home, Editor } from "pages/common"
 import { Lessons, Users } from "pages/manage"
@@ -17,6 +17,7 @@ export const AppRoutes = () => {
         <Route element={<AuthGuard allowedRoles={["admin"]} />}>
           <Route path="/users" element={<Users />} />
         </Route>
+        <Route path='*' element={<Navigate to="/" replace />}/>
       </Routes>
     </BrowserRouter>
   );
