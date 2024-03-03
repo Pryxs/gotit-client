@@ -84,7 +84,7 @@ const AccountWrapper = styled.div({
         padding: '40px',
         width: 'fit-content',
         margin: '40px auto 0 auto',
-    }
+    },
 })
 
 export const Header: React.FC = () => {
@@ -112,7 +112,7 @@ export const Header: React.FC = () => {
             ) : (
                 <AccountWrapper>
                     <p>{email}</p>
-                    <Icon svg={logout} onClick={clear}/>
+                    <Icon svg={logout} onClick={clear} size={24}/>
                 </AccountWrapper>
             )}
             </Navigation>
