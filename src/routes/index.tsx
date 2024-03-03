@@ -1,6 +1,6 @@
 import { Route, Routes } from "react-router";
 import { BrowserRouter,Navigate } from "react-router-dom";
-import { Login, Register } from "pages/auth"
+import { Login } from "pages/auth"
 import { Home, Editor } from "pages/common"
 import { Lessons, Users } from "pages/manage"
 import AuthGuard from './AuthGuard'
@@ -11,11 +11,10 @@ export const AppRoutes = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
         <Route path="/editor" element={<Editor />} />
         <Route path="/lessons" element={<Lessons />} />
         <Route element={<AuthGuard allowedRoles={["admin"]} />}>
-          <Route path="/users" element={<Users />} />
+          <Route path="/management" element={<Users />} />
         </Route>
         <Route path='*' element={<Navigate to="/" replace />}/>
       </Routes>

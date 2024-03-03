@@ -1,9 +1,8 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "hooks";
+import type { RoleType } from "types";
 
-type IRole = 'admin' | 'editor' | 'user' | 'guest';
-
-const AuthGuard = ({allowedRoles}: {allowedRoles: IRole[]} ) => {
+const AuthGuard = ({allowedRoles}: {allowedRoles: RoleType[]} ) => {
     const { role: auth } = useAuth()
     const location = useLocation();
 

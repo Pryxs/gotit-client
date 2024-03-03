@@ -8,6 +8,8 @@ export type IResponse<TData> = {
 
 export type TokenType = {
     email: string;
-    role: string;
+    role: RoleType;
     id: string;
 }
+
+export type RoleType = 'admin' | 'editor' | 'user' | 'guest';
