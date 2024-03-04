@@ -1,11 +1,12 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { getUsers, deleteUser, createUser } from "../api";
+import { getUsers, deleteUser, createUser, getUser } from "../api";
 import { IUser } from "../types";
 import { List } from 'components/List';
 import { delete as deleteIcon } from 'assets'
-import { Button, Input } from "components";
-import { Modal } from "components";
+import { edit } from 'assets'
+import { Button } from "components";
+import { CreateUserModal } from "./CreateUserModal";
 
 const grid = 'minmax(100px, 2fr) minmax(100px, 2fr) minmax(100px, 2fr)  minmax(70px, 2fr)  minmax(70px, 2fr)  minmax(70px, 2fr) 50px'
 
@@ -16,29 +17,6 @@ const ButtonWrapper = styled.div({
     width: '300px',
     margin: 'auto',
     marginTop: '32px',
-})
-
-const FormContainer = styled.div({
-    h2: {
-        fontWeight: 'bold',
-        margin: '8px 0',
-    },
-    '.field' : {
-        margin: '8px 0',
-        width: '100%',
-    },
-    button: {
-        marginTop: '24px',
-    }
-})
-
-const FormRow = styled.div({
-    display: 'flex',
-    gap: '16px',
-    '@media (max-width: 550px)': {
-        flexDirection: 'column',
-        gap: 0,
-    }
 })
 
 const baseForm: IUser = {
@@ -56,48 +34,36 @@ const baseForm: IUser = {
 
 export const UsersList = () => {
     const [users, setUsers] = useState<IUser[]>([])
-    const [creationForm, setCreationform] = useState<IUser>(baseForm)
-    const [isOpen, setisOpen] = useState<boolean>(false)
+    const [isOpenCreation, setIsOpenCreation] = useState<boolean>(false)
 
     const fetchData = async () => {
         const users = await getUsers()
         setUsers(users)
     }
 
-    const invalidateAction = async (fn: () => void) => {
+    const invalidate = async (fn: () => void) => {
         await fn();
         fetchData();
     }
 
-    const deleteOne = (id: string) => invalidateAction(() =>deleteUser(id))
+    const deleteOne = (id: string) => invalidate(() =>deleteUser(id))
 
-    const createOne = (formData: IUser) => invalidateAction(() =>createUser(formData))
+    const openEdition = async(id: string) => {
+        // const user = await getUser(id);
+        // setUpdateform({...user})
+        // setIsOpenEdition(true)
+    }
 
     const actions = [{
         name: 'supprimer',
         icon: deleteIcon,
         onClick: deleteOne,
+    }, {
+        name: 'modifier',
+        icon: edit,
+        onClick: openEdition,
     }]
 
-    const handleCreationFormChange = (e: any) => {
-        const name = e.target.getAttribute('name');
-        const { value } = e.target;
-        if (name && name.includes('.')) {
-            const [parent, child] = name.split('.');
-            if(parent === 'profile') {
-                const profile = creationForm.profile
-            setCreationform({
-                ...creationForm,
-                [parent]: {
-                    ...profile,
-                    [child]: value
-                }
-            });
-        }
-        } else {
-            setCreationform({...creationForm, [name]: value });
-        }
-    }
 
     useEffect(() => {
         fetchData()
@@ -108,27 +74,10 @@ export const UsersList = () => {
                 <List items={users} exclude={['_id', 'profile']} grid={grid} actions={actions} minWidth='600px'/>
 
                 <ButtonWrapper>
-                    <Button importance="secondary" name='Ajouter un utilisateur' onClick={() => setisOpen(true)}/>
+                    <Button importance="secondary" name='Ajouter un utilisateur' onClick={() => setIsOpenCreation(true)}/>
                 </ButtonWrapper>
 
-                <Modal isOpen={isOpen} setIsOpen={setisOpen} title='Ajouter un utilisateur'>
-                    <FormContainer>
-                        <h2>Informations de compte</h2>
-                        <Input label="Nom d'utilisateur" value={creationForm.username} onChange={(e) => handleCreationFormChange(e)} props={{name: 'username'}}/>
-                        <FormRow>
-                            <Input label="Email" value={creationForm.email} onChange={(e) => handleCreationFormChange(e)} props={{name: 'email'}} />
-                            <Input label="Role" value={creationForm.role} onChange={(e) => handleCreationFormChange(e)} props={{name: 'role'}}/>
-                            </FormRow>
-                        <Input label="Mot de passe" value={creationForm.password} onChange={(e) => handleCreationFormChange(e)} props={{name: 'password'}} />
-                        <h2>Profile</h2>
-                        <FormRow>
-                            <Input label="Prénom" value={creationForm.profile.firstName} onChange={(e) => handleCreationFormChange(e)} props={{name: 'profile.firstName'}}/>
-                            <Input label="Nom" value={creationForm.profile.name} onChange={(e) => handleCreationFormChange(e)}  props={{name: 'profile.name'}}/>
-                        </FormRow>
-                        <Input label="Date de naissance" value={creationForm.profile.birthdate} onChange={(e) => handleCreationFormChange(e)}  props={{name: 'profile.birthdate', type: 'date'}} />
-                        <Button name='Créer' onClick={() => createOne(creationForm)} />
-                    </FormContainer>
-                </Modal>
+                <CreateUserModal isOpen={isOpenCreation} setIsOpen={setIsOpenCreation} invalidate={invalidate}/>
             </Container>
     )
 }

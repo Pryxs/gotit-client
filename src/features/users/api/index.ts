@@ -15,14 +15,16 @@ export const getUsers = async (): Promise<IUser[]> => {
     return [];
 };
 
+
+export const getUser = async (id: string): Promise<Omit<IUser, 'password'>> => {
+    const { data } = await http.get('/users/' + id);
+    delete data.data._id;
+    return data.data;
+};
+
 export const createUser = async (formData: IUser) => {
     const res = await http.post<IResponse<IUser[]>>('/users', formData);
     console.log(res)
-    // if (data?.ok) {
-    //     return data.data;
-    // }
-
-    // return [];
 };
 
 
