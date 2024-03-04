@@ -37,7 +37,7 @@ const baseForm: IUser = {
     profile: {
         firstName: 'Jean',
         name: 'Dupont',
-        birthdate: '',
+        birthdate: '11-11-2011',
     }
 }
 

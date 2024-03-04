@@ -1,14 +1,15 @@
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
-import { getUsers, deleteUser, createUser, getUser } from "../api";
+import { getUsers, deleteUser, getUser } from "../api";
 import { IUser } from "../types";
 import { List } from 'components/List';
 import { delete as deleteIcon } from 'assets'
 import { edit } from 'assets'
 import { Button } from "components";
 import { CreateUserModal } from "./CreateUserModal";
+import { UpdateUserModal } from "./UpdateUserModal";
 
-const grid = 'minmax(100px, 2fr) minmax(100px, 2fr) minmax(100px, 2fr)  minmax(70px, 2fr)  minmax(70px, 2fr)  minmax(70px, 2fr) 50px'
+const grid = 'minmax(100px, 2fr) minmax(100px, 2fr) minmax(100px, 2fr)  minmax(70px, 2fr)  minmax(70px, 2fr)  minmax(70px, 2fr) 30px 30px'
 
 const Container = styled.div({
 })
@@ -35,6 +36,9 @@ const baseForm: IUser = {
 export const UsersList = () => {
     const [users, setUsers] = useState<IUser[]>([])
     const [isOpenCreation, setIsOpenCreation] = useState<boolean>(false)
+    const [isOpenEdition, setIsOpenEdition] = useState<boolean>(false)
+    const [updateForm, setUpdateForm] = useState<Omit<IUser, 'password'>>(baseForm)
+    const [id, setId] = useState<string | null>(null)
 
     const fetchData = async () => {
         const users = await getUsers()
@@ -46,22 +50,28 @@ export const UsersList = () => {
         fetchData();
     }
 
-    const deleteOne = (id: string) => invalidate(() =>deleteUser(id))
+    const deleteOne = (id: string) => {
+        // eslint-disable-next-line no-restricted-globals
+        if (confirm('Voulez vous supprimer cet utilisateur ?')) {
+            invalidate(() =>deleteUser(id))
+        }
+    }
 
     const openEdition = async(id: string) => {
-        // const user = await getUser(id);
-        // setUpdateform({...user})
-        // setIsOpenEdition(true)
+        const user = await getUser(id);
+        setId(id)
+        setUpdateForm({...user})
+        setIsOpenEdition(true)
     }
 
     const actions = [{
-        name: 'supprimer',
-        icon: deleteIcon,
-        onClick: deleteOne,
-    }, {
         name: 'modifier',
         icon: edit,
         onClick: openEdition,
+    },{
+        name: 'supprimer',
+        icon: deleteIcon,
+        onClick: deleteOne,
     }]
 
 
@@ -78,6 +88,8 @@ export const UsersList = () => {
                 </ButtonWrapper>
 
                 <CreateUserModal isOpen={isOpenCreation} setIsOpen={setIsOpenCreation} invalidate={invalidate}/>
+
+                <UpdateUserModal isOpen={isOpenEdition} setIsOpen={setIsOpenEdition} invalidate={invalidate} form={updateForm} setForm={setUpdateForm} id={id} setId={setId}/>
             </Container>
     )
 }

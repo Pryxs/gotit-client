@@ -27,6 +27,16 @@ export const createUser = async (formData: IUser) => {
     console.log(res)
 };
 
+type UpdateProps = {
+    id: string;
+    formData: Partial<Omit<IUser, 'password'>>
+}
+
+export const updateUser = async ({ id, formData }: UpdateProps) => {
+    const res = await http.patch('/users/' + id, formData);
+
+    console.log(res)
+};
 
 export const deleteUser = async (id: string) => {
     const res = await http.delete('/users/' + id);

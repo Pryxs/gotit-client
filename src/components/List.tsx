@@ -94,7 +94,7 @@ const Row = ({item, index, exclude, grid, actions, minWidth, isPair}: RowProps) 
         ))}
         {actions.map(action => (
             <ActionWrapper key={action.name}>
-                <Icon svg={action.icon} onClick={() => action.onClick(item._id)} size={16} />
+                <Icon svg={action.icon} onClick={() => action.onClick(item._id)} size={16} color='var(--dark)'/>
             </ActionWrapper>
         ))}
     </RowGrid>
