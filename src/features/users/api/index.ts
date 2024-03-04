@@ -23,8 +23,7 @@ export const getUser = async (id: string): Promise<Omit<IUser, 'password'>> => {
 };
 
 export const createUser = async (formData: IUser) => {
-    const res = await http.post<IResponse<IUser[]>>('/users', formData);
-    console.log(res)
+    await http.post<IResponse<IUser[]>>('/users', formData);
 };
 
 type UpdateProps = {

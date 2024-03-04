@@ -82,30 +82,22 @@ type RowProps = {
 const Row = ({item, index, exclude, grid, actions, minWidth, isPair}: RowProps) => (
     <RowGrid isPair={isPair} grid={grid} minWidth={minWidth}>
         {Object.keys(item).map(key => (
-            typeof item[key] === 'object' ? (
-                Object.keys(item[key]).map(keyBis => (
-                    !exclude?.includes(keyBis) && 
-                    <div key={keyBis + index}>{item[key][keyBis]}</div>
-                ))
-            ) : (
-                !exclude?.includes(key) &&
-                <div key={key + index}>{item[key]}</div>
-            )
+            !exclude?.includes(key) &&
+            <div key={index + key}>{item[key]}</div>
         ))}
         {actions.map(action => (
             <ActionWrapper key={action.name}>
                 <Icon svg={action.icon} onClick={() => action.onClick(item._id)} size={16} color='var(--dark)'/>
             </ActionWrapper>
-        ))}
+        ))} 
     </RowGrid>
     )
 
 export const List = ({ items, actions, exclude, grid, minWidth }: ListProps) => {
-    const headers = getAllKeys(items[0]).filter(e => !exclude?.includes(e))
-
+    const headers = getAllKeys(items[0]).filter(e => !exclude?.includes(e)).filter(e => isNaN(parseInt(e)))
 
     // TODO : refactor logic (add recursion)
-    return (
+    return (    
         <Container>
             <Header grid={grid} minWidth={minWidth}>
             {headers.map((header, index) => (

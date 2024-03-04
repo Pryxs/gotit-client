@@ -34,7 +34,7 @@ const baseForm: IUser = {
 
 
 export const UsersList = () => {
-    const [users, setUsers] = useState<IUser[]>([])
+    const [users, setUsers] = useState<Omit<IUser, 'profile'>[]>([])
     const [isOpenCreation, setIsOpenCreation] = useState<boolean>(false)
     const [isOpenEdition, setIsOpenEdition] = useState<boolean>(false)
     const [updateForm, setUpdateForm] = useState<Omit<IUser, 'password'>>(baseForm)
@@ -42,7 +42,14 @@ export const UsersList = () => {
 
     const fetchData = async () => {
         const users = await getUsers()
-        setUsers(users)
+        const usersList:Omit<IUser, 'profile'>[] = users.map(user => {
+            const { profile, ...rest } = user;
+            return {
+                ...profile,
+                ...rest,
+            };
+        })
+        setUsers(usersList)
     }
 
     const invalidate = async (fn: () => void) => {
@@ -53,7 +60,7 @@ export const UsersList = () => {
     const deleteOne = (id: string) => {
         // eslint-disable-next-line no-restricted-globals
         if (confirm('Voulez vous supprimer cet utilisateur ?')) {
-            invalidate(() =>deleteUser(id))
+            invalidate(() => deleteUser(id))
         }
     }
 
@@ -81,7 +88,7 @@ export const UsersList = () => {
 
     return(
             <Container>
-                <List items={users} exclude={['_id', 'profile']} grid={grid} actions={actions} minWidth='600px'/>
+                <List items={users} exclude={['_id']} grid={grid} actions={actions} minWidth='600px'/>
 
                 <ButtonWrapper>
                     <Button importance="secondary" name='Ajouter un utilisateur' onClick={() => setIsOpenCreation(true)}/>
