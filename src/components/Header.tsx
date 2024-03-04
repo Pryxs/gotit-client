@@ -1,6 +1,6 @@
 import styled from '@emotion/styled'
 import { useAuth } from 'hooks';
-import { logout } from 'assets';
+import { logout as logoutIncon } from 'assets';
 import { Icon, Button } from 'components'
 import { useNavigate } from 'react-router';
 import { routes } from 'utils/routes';
@@ -91,6 +91,11 @@ export const Header: React.FC = () => {
     const navigate = useNavigate();
     const { role, email, clear } = useAuth();
 
+    const logout = () => {
+        clear();
+        navigate('/')
+    }
+
     const[isOpen, setIsOpen] = useState<boolean>(false)
 
     return (
@@ -112,7 +117,7 @@ export const Header: React.FC = () => {
             ) : (
                 <AccountWrapper>
                     <p>{email}</p>
-                    <Icon svg={logout} onClick={clear} size={24}/>
+                    <Icon svg={logoutIncon} onClick={() => logout()} size={24}/>
                 </AccountWrapper>
             )}
             </Navigation>

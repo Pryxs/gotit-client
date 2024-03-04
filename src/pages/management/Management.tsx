@@ -8,12 +8,13 @@ import { ModulesList } from "features/modules";
 type TabType = 'users' | 'lessons' | 'modules';
 
 const Container = styled.div({
-    
+    padding: '24px',
 })
 
 const TabControl = styled.div({
     display: 'flex',
     gap: '24px',
+    marginBottom: '16px',
 })
 
 const TabButton = styled.button(({ isActive }: { isActive: boolean}) => ({

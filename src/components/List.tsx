@@ -3,16 +3,25 @@ import { CSSProperties } from 'react';
 import { getAllKeys } from 'utils/helpers';
 import { Icon } from './Icon';
 
-const Container = styled.button(({ color, hoverColor }: { color?: string, hoverColor?: string}) => ({
+type RowGridProps = {
+    isPair?: boolean, 
+    grid: CSSProperties['gridTemplateColumns'],
+    minWidth:  CSSProperties['width']
+}
+
+const Container = styled.div(({ color, hoverColor }: { color?: string, hoverColor?: string}) => ({
     width: '100%',
     overflowX: 'auto',
+    boxShadow: 'rgba(0, 0, 0, 0.05) 0px 1px 2px 0px',
 }))
 
-const Header = styled.div(({ grid }: { grid: CSSProperties['gridTemplateColumns']}) => ({
+const Header = styled.div(({ grid, minWidth }: RowGridProps) => ({
     display: 'grid',
     gridTemplateColumns: grid,
     background: 'var(--light)',
     padding: '8px 16px',
+    minWidth,
+    fontWeight: 'bold',
     'div' : {
         textAlign: 'left',
         overflow: 'hidden',
@@ -22,10 +31,11 @@ const Header = styled.div(({ grid }: { grid: CSSProperties['gridTemplateColumns'
     }
 }))
 
-const RowGrid = styled.div(({ isPair, grid }: { isPair: boolean, grid: CSSProperties['gridTemplateColumns']}) => ({
+const RowGrid = styled.div(({ isPair, grid, minWidth }: RowGridProps) => ({
     display: 'grid',
     gridTemplateColumns: grid,
     padding: '8px 16px',
+    minWidth,
     ...(isPair && {
         background: 'var(--light)',
     }),
@@ -42,7 +52,7 @@ const RowGrid = styled.div(({ isPair, grid }: { isPair: boolean, grid: CSSProper
     }
 }))
 
-const ActionWrapper = styled.button({
+const ActionWrapper = styled.div({
     
 })
 
@@ -56,6 +66,7 @@ type ListProps = {
     actions: ActionType[];
     exclude?: string[];
     grid: CSSProperties['gridTemplateColumns'];
+    minWidth: CSSProperties['width'];
 }
 
 type RowProps = {
@@ -64,10 +75,12 @@ type RowProps = {
     exclude?: string[];
     actions: ActionType[];
     grid: CSSProperties['gridTemplateColumns'];
+    minWidth: CSSProperties['width'];
+    isPair: boolean;
 }
 
-const Row = ({item, index, exclude, grid, actions}: RowProps) => (
-    <RowGrid isPair={!!(index % 2)} grid={grid}>
+const Row = ({item, index, exclude, grid, actions, minWidth, isPair}: RowProps) => (
+    <RowGrid isPair={isPair} grid={grid} minWidth={minWidth}>
         {Object.keys(item).map(key => (
             typeof item[key] === 'object' ? (
                 Object.keys(item[key]).map(keyBis => (
@@ -80,27 +93,27 @@ const Row = ({item, index, exclude, grid, actions}: RowProps) => (
             )
         ))}
         {actions.map(action => (
-            <ActionWrapper>
+            <ActionWrapper key={action.name}>
                 <Icon svg={action.icon} onClick={() => action.onClick(item._id)} size={16} />
             </ActionWrapper>
         ))}
     </RowGrid>
     )
 
-export const List = ({ items, actions, exclude, grid }: ListProps) => {
+export const List = ({ items, actions, exclude, grid, minWidth }: ListProps) => {
     const headers = getAllKeys(items[0]).filter(e => !exclude?.includes(e))
 
 
     // TODO : refactor logic (add recursion)
     return (
         <Container>
-            <Header grid={grid}>
+            <Header grid={grid} minWidth={minWidth}>
             {headers.map((header, index) => (
                 <div key={index}>{header}</div>
             ))}
             </Header>
             {items.map((item, index) => (
-                <Row key={index} item={item} index={index} grid={grid} exclude={exclude} actions={actions}/>
+                <Row key={item._id} item={item} index={item._id} grid={grid} exclude={exclude} actions={actions} minWidth={minWidth} isPair={!!(index % 2)}/>
             ))}       
         </Container>
     )

@@ -4,3 +4,4 @@ export * from "./Layout";
 export * from "./Header";
 export * from "./Icon";
 export * from "./List";
+export * from "./Modal";

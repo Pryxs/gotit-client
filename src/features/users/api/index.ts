@@ -14,3 +14,20 @@ export const getUsers = async (): Promise<IUser[]> => {
 
     return [];
 };
+
+export const createUser = async (formData: IUser) => {
+    const res = await http.post<IResponse<IUser[]>>('/users', formData);
+    console.log(res)
+    // if (data?.ok) {
+    //     return data.data;
+    // }
+
+    // return [];
+};
+
+
+export const deleteUser = async (id: string) => {
+    const res = await http.delete('/users/' + id);
+
+    console.log(res)
+};

@@ -1,5 +1,14 @@
 import styled from '@emotion/styled'
 
+const Container = styled.div({
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '8px',
+    label : {
+        fontSize: '14px',
+    }
+})
+
 const CustomInput = styled.input({
     padding: '8px 12px',
     borderRadius: '4px',
@@ -15,9 +24,13 @@ const CustomInput = styled.input({
 type InputProps = {
     value: string;
     onChange: (value: any) => void;
+    label: string;
     props?: {};
 };
 
-export const Input: React.FC<InputProps> = ({ value, onChange, props }) => {
-    return <CustomInput value={value} onChange={onChange} {...props}/>
-};
+export const Input: React.FC<InputProps> = ({ value, onChange,label, props }) => (
+    <Container className="field">
+        <label>{label}</label>
+        <CustomInput value={value} onChange={onChange} {...props}/>
+    </Container>
+)

@@ -38,8 +38,8 @@ export const LoginForm: React.FC = () => {
 
     return <Container>
         <FormWrapper>
-            <Input value={email} onChange={e => setEmail(e.target.value)} props={{type: 'email', name: 'username'}}/> 
-            <Input value={password} onChange={e => setPassword(e.target.value)} props={{type: 'password', name: 'password'}}/> 
+            <Input label='email' value={email} onChange={e => setEmail(e.target.value)} props={{type: 'email', name: 'username'}}/> 
+            <Input label='password' value={password} onChange={e => setPassword(e.target.value)} props={{type: 'password', name: 'password'}}/> 
             <Button name='Se connecter' onClick={submitLoginForm} />
         </FormWrapper>
     </Container>;
