@@ -81,7 +81,6 @@ export const UsersList = () => {
         onClick: deleteOne,
     }]
 
-
     useEffect(() => {
         fetchData()
     }, [])

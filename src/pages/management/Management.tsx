@@ -4,8 +4,9 @@ import { useState } from "react";
 import { UsersList } from 'features/users';
 import { LessonsList } from "features/lessons";
 import { ModulesList } from "features/modules";
+import { CategoriesList } from "features/categories";
 
-type TabType = 'users' | 'lessons' | 'modules';
+type TabType = 'users' | 'lessons' | 'modules' | 'categories';
 
 const Container = styled.div({
     padding: '24px',
@@ -44,6 +45,9 @@ export const Management = () => {
                     <TabButton onClick={() => setSelectedTab('modules')} isActive={selectedTab === 'modules'}>
                         Modules
                     </TabButton>
+                    <TabButton onClick={() => setSelectedTab('categories')} isActive={selectedTab === 'categories'}>
+                        Catégories
+                    </TabButton>
                 </TabControl>
                 {selectedTab === 'users' && (
                     <UsersList />
@@ -53,6 +57,9 @@ export const Management = () => {
                 )}
                 {selectedTab === 'modules' && (
                     <ModulesList />
+                )}
+                {selectedTab === 'categories' && (
+                    <CategoriesList />
                 )}
             </Container>
         </Layout>

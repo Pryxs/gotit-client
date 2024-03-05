@@ -21,7 +21,7 @@ export const LessonsList = () => {
             const { categories, author, ...rest } = lesson;
             return {
                 ...rest,
-                author: author ?? 'inconnu'
+                author: author?.username ?? 'inconnu'
             };
         })
         setLessons(lessonsList)
