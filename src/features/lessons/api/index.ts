@@ -3,10 +3,15 @@ import { http } from 'lib/axios';
 import type { ILesson } from '../types';
 import type { IResponse } from 'types';
 
+type QueryParamsType = {
+    q?: string;
+    status?: string;
+    author?: string;
+    categories?: string;
+}
 
-
-export const getLessons = async (): Promise<ILesson[]> => {
-    const { data } = await http.get<IResponse<ILesson[]>>('/lessons');
+export const getLessons = async (params?: QueryParamsType): Promise<ILesson[]> => {
+    const { data } = await http.get<IResponse<ILesson[]>>('/lessons', { params });
 
     if (data?.ok) {
         return data.data;

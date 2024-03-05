@@ -22,9 +22,9 @@ const CustomInput = styled.input({
 })
 
 type InputProps = {
-    value: string;
+    value?: string;
     onChange: (value: any) => void;
-    label: string;
+    label?: string;
     props?: {};
 };
 

@@ -3,10 +3,15 @@ import { http } from 'lib/axios';
 import type { IModule } from '../types';
 import type { IResponse } from 'types';
 
+type QueryParamsType = {
+    q?: string;
+    status?: string;
+    author?: string;
+    categories?: string;
+}
 
-
-export const getModules = async (): Promise<IModule[]> => {
-    const { data } = await http.get<IResponse<IModule[]>>('/modules');
+export const getModules = async (params?: QueryParamsType): Promise<IModule[]> => {
+    const { data } = await http.get<IResponse<IModule[]>>('/modules', { params });
 
     if (data?.ok) {
         return data.data;

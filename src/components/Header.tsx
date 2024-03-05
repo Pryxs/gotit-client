@@ -98,7 +98,7 @@ export const Header: React.FC = () => {
 
     const logout = () => {
         clear();
-        navigate('/')
+        navigate(0)
     }
 
     const[isOpen, setIsOpen] = useState<boolean>(false)
