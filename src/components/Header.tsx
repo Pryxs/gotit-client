@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router';
 import { routes } from 'utils/routes';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { menu, close } from 'assets';
 
 const Container = styled.div({
     padding: '16px',
@@ -22,6 +23,10 @@ const Container = styled.div({
 
 const ButtonWrapper = styled.div({
     maxWidth: '220px',
+    '@media (max-width: 800px)': {
+        width: 'fit-content',
+        margin: '40px auto 0 auto',
+    },
 })
 
 const Navigation = styled.div(({ isOpen }: { isOpen: boolean}) => ({
@@ -122,7 +127,7 @@ export const Header: React.FC = () => {
             )}
             </Navigation>
             <TriggerMenu onClick={() => setIsOpen(prev => !prev)}>
-                open
+                <Icon svg={isOpen ? close : menu} />
             </TriggerMenu>
         </Container>
     )

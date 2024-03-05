@@ -87,7 +87,7 @@ export const UsersList = () => {
 
     return(
             <Container>
-                <List items={users} exclude={['_id']} grid={grid} actions={actions} minWidth='600px'/>
+                <List items={users} exclude={['_id']} grid={grid} actions={actions} minWidth='800px'/>
 
                 <ButtonWrapper>
                     <Button importance="secondary" name='Ajouter un utilisateur' onClick={() => setIsOpenCreation(true)}/>
