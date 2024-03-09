@@ -1,0 +1,98 @@
+.tiptap {
+    padding: 12px;
+    outline: none;
+    border: 2px solid var(--dark);
+    border-radius: 4px;
+    height: 40vh;
+}
+
+.tiptap h1 {
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 1.2em;
+}
+
+.tiptap h2 {
+    font-weight: bold;
+    font-size: 22px;
+    line-height: 1.2em;
+}
+
+.tiptap h3 {
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 1.2em;
+}
+
+.tiptap code {
+    background-color: #0D0D0D;
+    color: white;
+    font-family: monospace;
+    padding: 4px;
+    border-radius: 4px;
+}
+
+.tiptap pre {
+    background: #0D0D0D;
+    color: #FFF;
+    font-family: 'JetBrainsMono', monospace;
+    padding: 0.75rem 1rem;
+    border-radius: 0.5rem;
+}
+
+.tiptap img {
+    max-width: 100%;
+    height: auto;
+}
+
+.tiptap blockquote {
+    padding-left: 1rem;
+    border-left: 2px solid rgba(#0D0D0D, 0.1);
+}
+
+.tiptap hr {
+    border: none;
+    border-top: 2px solid rgba(#0D0D0D, 0.1);
+    margin: 2rem 0;
+}
+
+.tiptap strong {
+    font-weight: bold;
+}
+
+.tiptap em {
+    font-style: italic;
+}
+
+.tiptap s {
+    text-decoration: line-through;
+}
+
+.tiptap ul {
+    padding-left: 16px;
+    list-style-type: disc;
+}
+
+.tiptap ol {
+    padding-left: 16px;
+    list-style-type:decimal;
+}
+
+.toolbar>button {
+    padding: 4px 8px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+    border: 1px solid var(--dynamic-color);
+    border-radius: 4px;
+}
+
+.toolbar>button:hover {
+    background: var(--dynamic-color);
+    color: var(--white);
+}
+
+div>.ProseMirror-focused {
+    outline: none;
+    border: 2px solid var(--contrast-color);
+    border-radius: 4px;
+}

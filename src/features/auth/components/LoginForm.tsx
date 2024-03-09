@@ -27,7 +27,7 @@ const FormWrapper = styled.div({
 export const LoginForm: React.FC = () => {
     const navigate = useNavigate();
 
-    const [email, setEmail] = useState<string>('admin@gmail.com');
+    const [email, setEmail] = useState<string>('editor@gmail.com');
     const [password, setPassword] = useState<string>('testtest');
     
     const submitLoginForm = async() => {

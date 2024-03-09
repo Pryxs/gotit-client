@@ -5,3 +5,4 @@ export * from "./Header";
 export * from "./Icon";
 export * from "./List";
 export * from "./Modal";
+export * from './Tiptap/Tiptap'
