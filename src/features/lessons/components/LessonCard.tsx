@@ -1,5 +1,6 @@
 import styled from '@emotion/styled'
 import { ILesson } from '../types';
+import { useNavigate } from 'react-router';
 
 const Container = styled.div({
     padding: '20px',
@@ -35,10 +36,11 @@ const Footer = styled.div({
     justifyContent: 'space-between',
 })
 
-export const LessonCard: React.FC<ILesson> = ({ title, content, status, categories, author }) => {
+export const LessonCard: React.FC<ILesson & { id: string}> = ({ id, title, content, status, categories, author }) => {
+    const navigate = useNavigate();
 
     return (
-            <Container>
+            <Container onClick={() => navigate('/lesson/' + id)}>
                 <h3>{title}</h3>
                 <Categories>
                     <p>Catégories : </p>

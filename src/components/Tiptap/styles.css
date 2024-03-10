@@ -4,6 +4,7 @@
     border: 2px solid var(--dark);
     border-radius: 4px;
     height: 40vh;
+    overflow-Y: auto;
 }
 
 .tiptap h1 {

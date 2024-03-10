@@ -69,7 +69,7 @@ export const ModuleCard:React.FC<IModule> = ({ title, author, level, lessons, ca
                 <Lessons>
                     <div>Lessons(<strong>{lessons.length}</strong>)</div>
                     {lessons.map(lesson => (
-                        <Lesson>
+                        <Lesson key={lesson.title}>
                             {lesson.title}
                         </Lesson>
                     ))}

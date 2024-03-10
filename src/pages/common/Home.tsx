@@ -37,7 +37,7 @@ const LessonsGrid = styled.div({
 
 export const Home = () => {
     const { role } = useAuth();
-    const [lessons, setLessons] = useState<ILesson[]>([])
+    const [lessons, setLessons] = useState<(ILesson & { _id: string})[]>([])
     const [modules, setModules] = useState<IModule[]>([])
 
     const debouncedSearch = _.debounce((value) => {
@@ -78,7 +78,7 @@ export const Home = () => {
                 <h2>Leçons</h2>
                 <LessonsGrid>
                     {lessons.length ? lessons.map(lesson => (
-                        <LessonCard key={lesson.title} {...lesson} />
+                        <LessonCard key={lesson.title} {...lesson} id={lesson._id} />
                     )) : (
                         <div>Aucun résultat</div>
                     )}

@@ -10,8 +10,8 @@ type QueryParamsType = {
     categories?: string;
 }
 
-export const getLessons = async (params?: QueryParamsType): Promise<ILesson[]> => {
-    const { data } = await http.get<IResponse<ILesson[]>>('/lessons', { params });
+export const getLessons = async (params?: QueryParamsType): Promise<(ILesson & { _id: string })[]> => {
+    const { data } = await http.get<IResponse<(ILesson & { _id: string })[]>>('/lessons', { params });
 
     if (data?.ok) {
         return data.data;
@@ -27,7 +27,7 @@ export const getLesson = async (id: string): Promise<ILesson> => {
     return data.data;
 };
 
-export const createLesson = async (formData: ILesson) => {
+export const createLesson = async (formData: Omit<ILesson, 'author'>) => {
     const res = await http.post<IResponse<ILesson[]>>('/lessons', formData);
     console.log(res)
 };
