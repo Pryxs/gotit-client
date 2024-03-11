@@ -1,4 +1,4 @@
-import { Input, Layout } from "components";
+import { Icon, Input, Layout } from "components";
 import { useEffect, useState } from "react";
 import type { ILesson } from "features/lessons";
 import { getLessons } from "features/lessons/api";
@@ -9,6 +9,8 @@ import styled from "@emotion/styled";
 import { IModule } from "features/modules";
 import { getModules } from "features/modules/api";
 import { ModuleCard } from 'features/modules';
+import { CategoriesSelector } from "features/categories";
+import { reset } from "assets";
 
 const Container = styled.div({
     padding: '24px',
@@ -22,6 +24,12 @@ const Container = styled.div({
 const ModulesContainer = styled.div({
     display: 'flex',
     gap: '16px',
+    marginTop: '16px',
+})
+
+const CategoryLabel = styled.div({
+    display: 'flex',
+    justifyContent: 'space-between',
     marginTop: '16px',
 })
 
@@ -39,34 +47,47 @@ export const Home = () => {
     const { role } = useAuth();
     const [lessons, setLessons] = useState<(ILesson & { _id: string})[]>([])
     const [modules, setModules] = useState<IModule[]>([])
+    const [selectedCategories, setSelectCategories] = useState<string[]>([]);
+    const [search, setSearch] = useState<string>('')
+
 
     const debouncedSearch = _.debounce((value) => {
-        fetchData(value)
+        setSearch(value)
     }, 200)
 
-    const fetchData = async (search?: string) => {
+    const fetchData = async () => {
         const lessons = await getLessons({ 
             q: search,
             status: role === 'guest' ? 'public' : 'private',
+            ...(selectedCategories.length && {
+                categories: selectedCategories.join(',')
+            })
         })
         const modules = await getModules({ 
             q: search,
             status: role === 'guest' ? 'public' : 'private',
+            ...(selectedCategories.length && {
+                categories: selectedCategories.join(',')
+            })
         })
         setLessons(lessons)
         setModules(modules)
-
     }
 
     useEffect(() => {
         fetchData()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [selectedCategories, search])
 
     return(
         <Layout>
             <Container>
                 <Input onChange={(e) => debouncedSearch(e.target.value)} props={{ placeholder: 'rechercher...'}} />
+                <CategoryLabel>
+                    <div>Filtrer par catégories</div>
+                    <Icon size={18} svg={reset} onClick={() => setSelectCategories([])}/>
+                </CategoryLabel>
+                <CategoriesSelector selectedCategories={selectedCategories} setSelectCategories={setSelectCategories} />
                 <h2>Modules</h2>
                 <ModulesContainer>
                     {modules.length ? modules.map(module => (

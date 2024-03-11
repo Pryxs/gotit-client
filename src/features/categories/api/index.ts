@@ -5,8 +5,8 @@ import type { IResponse } from 'types';
 
 
 
-export const getCategories = async (): Promise<ICategory[]> => {
-    const { data } = await http.get<IResponse<ICategory[]>>('/categories');
+export const getCategories = async (): Promise<(ICategory & { _id: string })[]> => {
+    const { data } = await http.get<IResponse<(ICategory & { _id: string })[]>>('/categories');
 
     if (data?.ok) {
         return data.data;

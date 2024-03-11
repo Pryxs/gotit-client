@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
-import { getModules, deleteModule } from "../api";
 import { IModule } from "../types";
-import { List } from 'components/List';
+import { useNavigate } from "react-router";
 
 
 const Container = styled.div({
@@ -34,11 +32,19 @@ const Lessons = styled.div({
 })
 
 const Lesson = styled.a({
+    marginLeft: '18px',
+    display: 'block',
     color: 'var(--dynamic-color)',
     textDecoration: 'underline',
+    position: 'relative',
     cursor: 'pointer',
     '&:hover' : {
         color: 'var(--contrast-color)',
+    },
+    '&::before': {
+        content: "'➤'",
+        position: 'absolute',
+        left: '-18px',
     }
 })
 
@@ -52,35 +58,37 @@ const Footer = styled.div({
 })
 
 export const ModuleCard:React.FC<IModule> = ({ title, author, level, lessons, categories, status}) => {
+    const navigate = useNavigate()
 
     return(
-            <Container>
-                <h3>{title}</h3>
-                <Categories>
-                    <p>Catégories : </p>
-                    {categories.length ? 
-                        categories.map(category => (
-                        <Category key={category.name}>{category.name}</Category>
-                    )): (
-                        <p>aucune</p>
-                    )}
-                </Categories>
-                <div>Niveau : {level}</div>
-                <Lessons>
-                    <div>Lessons(<strong>{lessons.length}</strong>)</div>
-                    {lessons.map(lesson => (
-                        <Lesson key={lesson.title}>
-                            {lesson.title}
-                        </Lesson>
-                    ))}
-                </Lessons>
-                <Footer>
-                    <div>
-                        Par : {author.username}
-                    </div>
-                    <div>
-                        {status}
-                    </div>
-                </Footer>            </Container>
+        <Container>
+            <h3>{title}</h3>
+            <Categories>
+                <p>Catégories : </p>
+                {categories.length ? 
+                    categories.map(category => (
+                    <Category key={category.name}>{category.name}</Category>
+                )): (
+                    <p>aucune</p>
+                )}
+            </Categories>
+            <div>Niveau : {level}</div>
+            <Lessons>
+                <div>Lessons(<strong>{lessons.length}</strong>)</div>
+                {lessons.map(lesson => (
+                    <Lesson key={lesson.title} onClick={() => navigate('/lesson/' + lesson._id)}>
+                        {lesson.title}
+                    </Lesson>
+                ))}
+            </Lessons>
+            <Footer>
+                <div>
+                    Par : {author.username}
+                </div>
+                <div>
+                    {status}
+                </div>
+            </Footer>            
+        </Container>
     )
 }

@@ -1,10 +1,12 @@
 import styled from "@emotion/styled"
 import { Content } from "@tiptap/react"
-import { Button, Input, Layout } from "components"
+import { Button, Icon, Input, Layout } from "components"
 import { TiptapEditor } from "components"
 import { useState } from "react"
 import { createLesson } from "features/lessons/api"
 import { useNavigate } from "react-router"
+import { CategoriesSelector } from "features/categories"
+import { reset } from "assets"
 
 const Container = styled.div({
     padding: '24px',
@@ -31,6 +33,12 @@ const Label = styled.label({
     }
 })
 
+const CategoryLabel = styled.label({
+    display: 'flex',
+    marginBottom: "12px",
+    justifyContent: 'space-between',
+})
+
 
 
 export const Editor = () => {
@@ -38,6 +46,7 @@ export const Editor = () => {
     const [checked, setChecked] = useState(false);
     const [title, setTitle] = useState<string>('')
     const [content, setContent] = useState<Content>('')
+    const [selectedCategories, setSelectCategories] = useState<string[]>([]);
 
     const publish = async() => {
         if(typeof content === 'string') {
@@ -45,7 +54,7 @@ export const Editor = () => {
                 title, 
                 content, 
                 status: checked ? 'private' : 'public', 
-                categories: []
+                categories: selectedCategories
             })
         }
         navigate('/')
@@ -59,6 +68,11 @@ export const Editor = () => {
                 <Input label='Titre' value={title} onChange={(e) => setTitle(e.target.value)} />
                 <VerticalSpacer />
                 <TiptapEditor content={content} onUpdate={setContent} />
+                <VerticalSpacer />
+                <CategoryLabel>
+                    <div>Catégories</div><Icon size={18} svg={reset} onClick={() => setSelectCategories([])}/>
+                </CategoryLabel>
+                <CategoriesSelector selectedCategories={selectedCategories} setSelectCategories={setSelectCategories} />
                 <VerticalSpacer />
                 <Label>
                     <input

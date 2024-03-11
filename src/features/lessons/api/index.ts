@@ -27,7 +27,7 @@ export const getLesson = async (id: string): Promise<ILesson> => {
     return data.data;
 };
 
-export const createLesson = async (formData: Omit<ILesson, 'author'>) => {
+export const createLesson = async (formData: Omit<ILesson, 'author' | 'categories' | '_id'> & { categories: string[] }) => {
     const res = await http.post<IResponse<ILesson[]>>('/lessons', formData);
     console.log(res)
 };

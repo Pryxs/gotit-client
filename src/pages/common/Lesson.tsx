@@ -2,7 +2,6 @@ import styled from "@emotion/styled"
 import { Layout } from "components"
 import { useEffect, useState } from "react"
 import { getLesson } from "features/lessons/api"
-import { useAuth } from "hooks"
 import { ILesson } from "features/lessons"
 import { useParams } from "react-router"
 
