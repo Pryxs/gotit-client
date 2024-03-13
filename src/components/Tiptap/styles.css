@@ -79,17 +79,33 @@
     list-style-type:decimal;
 }
 
-.toolbar>button {
-    padding: 4px 8px;
+.toolbar {
+    display: flex;
+    gap: 16px;
+}
+
+.toolbar button {
+    padding: 4px;
     margin-right: 6px;
     margin-bottom: 6px;
     border: 1px solid var(--dynamic-color);
     border-radius: 4px;
 }
 
-.toolbar>button:hover {
-    background: var(--dynamic-color);
-    color: var(--white);
+.toolbar button:hover {
+    background: var(--light);
+    border-color: transparent;
+}
+
+.toolbar button:disabled {
+    cursor: not-allowed;
+    background: lightgray;
+    opacity: .7;
+    border: transparent;
+}
+
+.toolbar button:disabled svg{
+    color: gray;
 }
 
 div>.ProseMirror-focused {
