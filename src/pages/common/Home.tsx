@@ -24,6 +24,8 @@ const ModulesContainer = styled.div({
     display: 'flex',
     gap: '16px',
     marginTop: '16px',
+    overflowX: 'auto',
+    padding: '2px',
 })
 
 const Header = styled.div({

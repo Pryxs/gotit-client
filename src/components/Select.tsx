@@ -9,7 +9,7 @@ const Container = styled.div({
     fontSize: '14px',
 })
 
-const Selected = styled.button({
+const Selected = styled.div({
     padding: '6px 10px',
     borderRadius: '4px',
     outline: 'none',
@@ -36,6 +36,7 @@ const Options = styled.ul(({isOpen} : {isOpen: boolean}) => ({
     background: 'var(--white)',
     boxShadow: 'rgba(0, 0, 0, 0.08) 0px 4px 12px',
     padding: '12px',
+    zIndex: '40',
 }))
 
 const EmptyPill = styled.div({
@@ -93,14 +94,14 @@ export const Select:React.FC<SelectProps> = ({ options, selected, setSelected, p
         }
     }
 
-    const ref = useOutsideClick<HTMLButtonElement>(() => setIsOpen(false));
+    const ref = useOutsideClick<HTMLDivElement>(() => setIsOpen(false));
 
     return (
         <Container>
-            <Selected ref={ref} onClick={() => setIsOpen(prev => !prev)} >
+            <Selected role='button' ref={ref} onClick={() => setIsOpen(prev => !prev)} >
                 <Icon svg={arrow} />
             {!!selected.length ? selected.map(id => (
-                <Pill>
+                <Pill key={id}>
                     <div>{getOptionName(id)}</div>
                     <Icon svg={close} onClick={() => toggleOption(id)} size={18}/>
                 </Pill>

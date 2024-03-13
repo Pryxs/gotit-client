@@ -21,7 +21,7 @@ const CustomInput = styled.input({
 })
 
 type InputProps = {
-    value?: string;
+    value?: string | number;
     onChange: (value: any) => void;
     label?: string;
     props?: {};

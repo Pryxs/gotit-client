@@ -27,7 +27,9 @@ export const getModule = async (id: string): Promise<IModule> => {
     return data.data;
 };
 
-export const createModule = async (formData: IModule) => {
+type CreateModuleProps = Omit<IModule, 'author' | 'categories' | 'lessons'> & { categories: string[], lessons: string[] }
+
+export const createModule = async (formData: CreateModuleProps) => {
     const res = await http.post<IResponse<IModule[]>>('/modules', formData);
     console.log(res)
 };

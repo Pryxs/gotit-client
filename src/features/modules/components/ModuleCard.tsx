@@ -8,7 +8,10 @@ const Container = styled.div({
     borderRadius: '4px',
     boxShadow: 'rgba(0, 0, 0, 0.08) 0px 4px 12px',
     border: '1px solid transparent',
-    width: '100%',
+    minWidth: '300px',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
     h3 : {
         fontWeight: 'bold',
         fontSize: '18px',
@@ -62,25 +65,27 @@ export const ModuleCard:React.FC<IModule> = ({ title, author, level, lessons, ca
 
     return(
         <Container>
-            <h3>{title}</h3>
-            <Categories>
-                <p>Catégories : </p>
-                {categories.length ? 
-                    categories.map(category => (
-                    <Category key={category.name}>{category.name}</Category>
-                )): (
-                    <p>aucune</p>
-                )}
-            </Categories>
-            <div>Niveau : {level}</div>
-            <Lessons>
-                <div>Lessons(<strong>{lessons.length}</strong>)</div>
-                {lessons.map(lesson => (
-                    <Lesson key={lesson.title} onClick={() => navigate('/lesson/' + lesson._id)}>
-                        {lesson.title}
-                    </Lesson>
-                ))}
-            </Lessons>
+            <div>
+                <h3>{title}</h3>
+                <Categories>
+                    <p>Catégories : </p>
+                    {categories.length ? 
+                        categories.map(category => (
+                        <Category key={category.name}>{category.name}</Category>
+                    )): (
+                        <p>aucune</p>
+                    )}
+                </Categories>
+                <div>Niveau : {level}</div>
+                <Lessons>
+                    <div>Lessons(<strong>{lessons.length}</strong>)</div>
+                    {lessons.map(lesson => (
+                        <Lesson key={lesson.title} onClick={() => navigate('/lesson/' + lesson._id)}>
+                            {lesson.title}
+                        </Lesson>
+                    ))}
+                </Lessons>
+            </div>
             <Footer>
                 <div>
                     Par : {author.username}

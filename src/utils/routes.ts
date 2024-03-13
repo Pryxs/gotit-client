@@ -9,17 +9,22 @@ type RoutesType = {
 export const routes: RoutesType = [
     {
         name: 'Gestion',
-        path: 'management',
+        path: '/management',
         authority: ['admin'],
     },
     {
         name: 'Créer un cours',
-        path: 'editor',
+        path: '/editor',
+        authority: ['editor'],
+    },
+    {
+        name: 'Créer un module',
+        path: '/module',
         authority: ['editor'],
     },
     {
         name: 'Cours',
-        path: 'lessons',
+        path: '/lessons',
         authority: ['admin', 'editor', 'user', 'guest'],
     }
 ]

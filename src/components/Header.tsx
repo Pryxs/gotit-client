@@ -7,6 +7,7 @@ import { routes } from 'utils/routes';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { menu, close } from 'assets';
+import { useLocation } from "react-router-dom";
 
 const Container = styled.div({
     padding: '16px',
@@ -39,6 +40,7 @@ const Navigation = styled.div(({ isOpen }: { isOpen: boolean}) => ({
         flexDirection: 'column',
         background: 'var(--light)',
         position: 'absolute',
+        zIndex: 50,
         top: 0,
         left: 0,
         width: '100%',
@@ -94,7 +96,10 @@ const AccountWrapper = styled.div({
 
 export const Header: React.FC = () => {
     const navigate = useNavigate();
+    const location = useLocation();
     const { role, email, clear } = useAuth();
+
+    const currentPath = location.pathname;
 
     const logout = () => {
         clear();
@@ -110,7 +115,16 @@ export const Header: React.FC = () => {
                 <Menu>
                 {routes.map(route => 
                     route.authority.includes(role) && (
-                        <Link key={route.path} to={route.path}>{route.name}</Link>
+                        <Link 
+                            key={route.path} 
+                            to={currentPath === route.path ? '#' : route.path}
+                            style={{ ...(currentPath === route.path && {
+                                pointerEvents: 'none',
+                                 textDecoration: 'underline'
+                            })}}
+                        >
+                            {route.name}
+                        </Link>
                     )
                 )}
                 </Menu>

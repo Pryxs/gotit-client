@@ -6,6 +6,7 @@ import { useState } from "react";
 export const useAuth = () => {
     const [role, setRole] = useState<RoleType>('guest');
     const [email, setEmail] = useState<string>('');
+    const [id, setId] = useState<string>('');
 
     const clear = () => {
         storage.clearToken();
@@ -21,8 +22,9 @@ export const useAuth = () => {
         if(decodedToken.role !== role) {
             setRole(decodedToken.role);
             setEmail(decodedToken.email);
+            setId(decodedToken.id);
         }
     }
     
-    return {role, email, clear};
+    return {role, email, id, clear};
 }
