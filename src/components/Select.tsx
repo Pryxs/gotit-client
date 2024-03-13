@@ -2,6 +2,7 @@ import styled from "@emotion/styled"
 import { useState } from "react"
 import { Icon } from "./Icon"
 import { arrow, close } from "assets"
+import { useOutsideClick } from "hooks"
 
 const Container = styled.div({
     position: 'relative',
@@ -92,9 +93,11 @@ export const Select:React.FC<SelectProps> = ({ options, selected, setSelected, p
         }
     }
 
+    const ref = useOutsideClick<HTMLButtonElement>(() => setIsOpen(false));
+
     return (
         <Container>
-            <Selected onClick={() => setIsOpen(prev => !prev)}>
+            <Selected ref={ref} onClick={() => setIsOpen(prev => !prev)} >
                 <Icon svg={arrow} />
             {!!selected.length ? selected.map(id => (
                 <Pill>

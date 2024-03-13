@@ -1,12 +1,11 @@
 import styled from "@emotion/styled"
 import { Content } from "@tiptap/react"
-import { Button, Icon, Input, Layout } from "components"
+import { Button, Input, Layout } from "components"
 import { TiptapEditor } from "components"
 import { useState } from "react"
 import { createLesson } from "features/lessons/api"
 import { useNavigate } from "react-router"
 import { CategoriesSelector } from "features/categories"
-import { reset } from "assets"
 
 const Container = styled.div({
     padding: '24px',
@@ -70,7 +69,7 @@ export const Editor = () => {
                 <TiptapEditor content={content} onUpdate={setContent} />
                 <VerticalSpacer />
                 <CategoryLabel>
-                    <div>Catégories</div><Icon size={18} svg={reset} onClick={() => setSelectCategories([])}/>
+                    <div>Catégories</div>
                 </CategoryLabel>
                 <CategoriesSelector selectedCategories={selectedCategories} setSelectCategories={setSelectCategories} />
                 <VerticalSpacer />

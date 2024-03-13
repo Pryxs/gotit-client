@@ -35,7 +35,14 @@ const Header = styled.div({
     },
     '&>div:nth-child(2)' : {
         flex: 1,
+        '@media (max-width: 1100px)': {
+            flex: 2,
+        }
+    },
+    '@media (max-width: 800px)': {
+        flexDirection: 'column',
     }
+
 })
 
 const LessonsGrid = styled.div({

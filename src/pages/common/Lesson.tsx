@@ -23,6 +23,7 @@ const Preview = styled.div({
 const Infos = styled.div({
     display: 'flex',
     justifyContent: 'end',
+    marginTop: '24px',
     '&>strong' : {
         fontWeight: 'bold',
         marginLeft: '.5em',
