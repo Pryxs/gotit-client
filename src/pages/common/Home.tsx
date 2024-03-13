@@ -1,4 +1,4 @@
-import { Icon, Input, Layout } from "components";
+import { Input, Layout } from "components";
 import { useEffect, useState } from "react";
 import type { ILesson } from "features/lessons";
 import { getLessons } from "features/lessons/api";
@@ -10,7 +10,6 @@ import { IModule } from "features/modules";
 import { getModules } from "features/modules/api";
 import { ModuleCard } from 'features/modules';
 import { CategoriesSelector } from "features/categories";
-import { reset } from "assets";
 
 const Container = styled.div({
     padding: '24px',
@@ -27,10 +26,16 @@ const ModulesContainer = styled.div({
     marginTop: '16px',
 })
 
-const CategoryLabel = styled.div({
+const Header = styled.div({
     display: 'flex',
-    justifyContent: 'space-between',
-    marginTop: '16px',
+    gap: '12px',
+    width: '100%',
+    '&>div:first-child' : {
+        flex: 3,
+    },
+    '&>div:nth-child(2)' : {
+        flex: 1,
+    }
 })
 
 const LessonsGrid = styled.div({
@@ -49,7 +54,6 @@ export const Home = () => {
     const [modules, setModules] = useState<IModule[]>([])
     const [selectedCategories, setSelectCategories] = useState<string[]>([]);
     const [search, setSearch] = useState<string>('')
-
 
     const debouncedSearch = _.debounce((value) => {
         setSearch(value)
@@ -82,12 +86,10 @@ export const Home = () => {
     return(
         <Layout>
             <Container>
-                <Input onChange={(e) => debouncedSearch(e.target.value)} props={{ placeholder: 'rechercher...'}} />
-                <CategoryLabel>
-                    <div>Filtrer par catégories</div>
-                    <Icon size={18} svg={reset} onClick={() => setSelectCategories([])}/>
-                </CategoryLabel>
-                <CategoriesSelector selectedCategories={selectedCategories} setSelectCategories={setSelectCategories} />
+                <Header>
+                    <Input onChange={(e) => debouncedSearch(e.target.value)} props={{ placeholder: 'rechercher...'}} />
+                    <CategoriesSelector selectedCategories={selectedCategories} setSelectCategories={setSelectCategories} />
+                </Header>
                 <h2>Modules</h2>
                 <ModulesContainer>
                     {modules.length ? modules.map(module => (

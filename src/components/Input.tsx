@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 const Container = styled.div({
     display: 'flex',
     flexDirection: 'column',
-    gap: '8px',
     label : {
         fontSize: '14px',
     }

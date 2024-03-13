@@ -6,5 +6,5 @@ export { default as edit } from "./icons/edit.svg"
 export { default as plus } from "./icons/plus.svg"
 export { default as menu } from "./icons/menu.svg"
 export { default as reset } from "./icons/reset.svg"
-
+export { default as arrow } from "./icons/arrow.svg"
 
